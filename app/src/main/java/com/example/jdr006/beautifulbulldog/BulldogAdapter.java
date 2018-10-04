@@ -26,7 +26,7 @@ public class BulldogAdapter extends RecyclerView.Adapter<BulldogAdapter.BulldogV
 
         public BulldogViewHolder(View v, RecyclerViewClickListener listener) {
             super(v);
-            nameView = v.findViewById(R.id.name_view2);
+            nameView = v.findViewById(R.id.name_view);
             ageView = v.findViewById(R.id.age_view);
             mListener = listener;
             v.setOnClickListener(this);

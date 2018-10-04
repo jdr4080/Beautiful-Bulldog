@@ -27,6 +27,10 @@
             android:label="@string/title_activity_new_bulldog"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BulldogActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="b132f89caf94ef91c1d79756c81b0716ddbd4ba9" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

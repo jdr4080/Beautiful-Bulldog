@@ -2,6 +2,8 @@ package com.example.jdr006.beautifulbulldog;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,12 +39,23 @@ public class BulldogListFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_bulldog_list, container, false);
 
-        Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Bulldog> bulldogs = realm.where(Bulldog.class).findAll();
         bulldogList = (RecyclerView)v.findViewById(R.id.bulldog_list);
-
         layoutManager = new LinearLayoutManager(getContext());
         bulldogList.setLayoutManager(layoutManager);
+        refreshList();
+
+        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshList();
+    }
+
+    private void refreshList() {
+        Realm realm = Realm.getDefaultInstance();
+        final RealmResults<Bulldog> bulldogs = realm.where(Bulldog.class).findAll();
 
         final MainActivity mainActivity = (MainActivity) this.getActivity();
 
@@ -51,16 +64,14 @@ public class BulldogListFragment extends Fragment {
             public void onClick(View view, int position) {
                 Bulldog bulldog = (Bulldog) bulldogs.get(position);
                 Intent intent = new Intent(view.getContext(), BulldogActivity.class);
-                intent.putExtra("bulldog", bulldog.getId());
                 intent.putExtra("username", mainActivity.user.getUsername());
+                intent.putExtra("bulldog", bulldog.getId());
                 startActivity(intent);
             }
         };
 
-        bulldogAdapter = new BulldogAdapter(getContext(), bulldogs, listener);
-        bulldogList.setAdapter(bulldogAdapter);
-
-        return v;
+        BulldogAdapter adapter = new BulldogAdapter(getActivity(), bulldogs, listener);
+        bulldogList.setAdapter(adapter);
     }
 
 }

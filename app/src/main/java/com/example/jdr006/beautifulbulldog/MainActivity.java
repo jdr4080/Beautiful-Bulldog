@@ -14,6 +14,7 @@ import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
     public User user;
+    public Vote vote;
     private Realm realm;
 
     @Override
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.addTab(tabLayout.newTab().setText("Bulldogs"));
-        tabLayout.addTab(tabLayout.newTab().setText("Rankings"));
+        tabLayout.addTab(tabLayout.newTab().setText("Votes"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
         String username = getIntent().getStringExtra("username");
         user = realm.where(User.class).equalTo("username", username).findFirst();
+
     }
 
 }
